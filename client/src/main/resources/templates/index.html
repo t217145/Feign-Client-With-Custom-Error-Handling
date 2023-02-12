@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>List Students</title>
+</head>
+<body>
+<section layout:fragment="customContent">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <a href="#" th:href="@{/create}" class="btn btn-primary">Create</a>         
+        </div>
+    </div>    
+    <table class="table table-striped">
+        <tr>
+            <th>#</th>
+            <th>OUHK ID </th>
+            <th>Name</th>
+        </tr>
+        <tr th:each="std : ${allStd}">
+            <td th:text="${std.stdId}" />
+            <td th:text="${std.stdNo}" />
+            <td th:text="${std.name}" />
+        </tr>
+    </table>
+</section>
+</body>
+</html>

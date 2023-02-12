@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+    
+</head>
+<body>
+<div layout:fragment="customContent">
+    <form action="#" th:action="@{/create}" th:object="${newStd}" method="POST">
+        <div th:if="${#fields.hasAnyErrors()}">
+            <ul>
+                <li th:each="err : ${#fields.allErrors()}" th:text="${err}" class="text-danger" />
+            </ul>
+        </div>
+        <div class="form-group">
+            <label for="stdNo">Student Code</label>
+            <input type="text" class="form-control" id="stdNo" placeholder="Student Code" th:field="*{stdNo}">
+            <p th:if="${#fields.hasErrors('stdNo')}">Invalid Student Code</p>
+            <ul>
+                <li th:each="err : ${#fields.errors('stdNo')}" th:text="${err}" class="text-danger" />
+            </ul>
+        </div>
+        <div class="form-group">
+            <label for="name">Student Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Student Name" th:field="*{name}">
+            <ul>
+                <li th:each="err : ${#fields.errors('stdNo')}" th:text="${err}" class="text-danger" />
+            </ul>
+        </div>          
+        <button type="submit" class="btn btn-primary">Create</button> &nbsp;&nbsp;&nbsp;
+        <a href="#" th:href="@{/index}" class="btn btn-warning">Back</a>
+    </form>
+</div>
+</body>
+</html>
