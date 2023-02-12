@@ -2,7 +2,7 @@
 
 This project is to illustrate the coding of how to throw business exception from Web Services, and then get and display in Spring Boot MVC via FeignClient
 
-## The effect<hr/>
+## The effect
 
 ### Get the list from Web Services
 ![List](/_images/list.PNG?raw=true "List")
@@ -14,7 +14,7 @@ This project is to illustrate the coding of how to throw business exception from
 ### When add duplicate Student Code, error throw from Web Services and display in Web view
 ![Error](/_images/error.PNG?raw=true "Error")
 
-## Code explanation<hr/>
+## Code explanation
 
 ### <u>Web Service side</u>
 1. When error occur in RestController, it will throw <i><b>CustomException</b></i> and handled in @ControllerAdvice.
