@@ -32,4 +32,4 @@ This project is to illustrate the coding of how to throw business exception from
 &nbsp;&nbsp;&nbsp;&nbsp;b. The Response Body. <br />
 In my demo, I pass the error message in form of <b><i>Map<String, String></b></i>. So that you can cast the response to Map<String, String>, and then get the error message, error code, or even any key-value pair up to your design. <br />
 In fact, you can put any object in the ResponseBody in the @ControllerAdvice. On the Web MVC side, you can transform the reponse body back to object by deserialize the response body. 
-![mvc](/_images/code-mvc.PNG?raw=true "mvc")
+![mvc](/_images/code-mvc.png?raw=true "mvc")
