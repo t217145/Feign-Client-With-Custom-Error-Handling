@@ -37,31 +37,34 @@ public class TestController {
     }
 
     @PostMapping("/create")
-    @SuppressWarnings("unchecked")
     public String create(ModelMap m, @ModelAttribute("newStd") @Valid Students newStd, BindingResult result){       
-        boolean hasError = result.hasErrors(); //local validation
         try{
-            if(!hasError){
-                svc.addStudents(newStd);
+            if(!result.hasErrors()){ //has local validation error (form validation)
+                svc.addStudents(newStd); //consume the HTTP POST Web Services
+                return "redirect:/index";//Success and return, to prevent execute remaining code
             }
-        }catch(FeignException fe){ //WS validation
-            hasError = true;
-            logger.error("Error when calling [Add] : {}", fe.getMessage());
-            String resp = fe.contentUTF8();
-            Map<String, String> custError = new HashMap<>();
-            try {
-                custError = new ObjectMapper().readValue(resp, Map.class);
-            } catch (JsonProcessingException e) {
-                logger.error("Error when calling [Add] : Error Response cannot be converted {}", resp);
-                e.printStackTrace();
-            }
-            result.reject("err", custError.getOrDefault("errMsg", "Error Occur"));
+        }catch(FeignException fe){ //Web Services validation occur error
+            logger.error("Error when calling [Add] : {}", fe.getMessage());//Log the full error message
+            //Get the response body in UTF8 String format and deserialize to Map<String, String>
+            Map<String, String> custError = convertJsonToObect(fe.contentUTF8());
+            //Return the error message and display in  general error message in view
+            result.reject("error", custError.getOrDefault("errMsg", "Error Occur"));
         }
 
-        if(hasError){
-            m.addAttribute("newStd", newStd);
-            return "create";
+        m.addAttribute("newStd", newStd);
+        return "create";
+    }
+
+    @SuppressWarnings("unchecked")
+    private Map<String, String> convertJsonToObect(String json){
+        Map<String, String> rtn = new HashMap<>();
+        try {
+            //Do the convertion
+            rtn = new ObjectMapper().readValue(json,  Map.class);
+        } catch (JsonProcessingException e) {
+            logger.error("Error Response cannot be converted {}", json);
+            e.printStackTrace();
         }
-        return "redirect:/index";
+        return rtn;
     }
 }
