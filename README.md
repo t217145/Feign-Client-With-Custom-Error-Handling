@@ -21,7 +21,7 @@ This project is to illustrate the coding of how to throw business exception from
 ![Controller](/_images/code-1.PNG?raw=true "Controller")
 
 2. The @ExceptionHandler method will return a HTTP 400 Bad Request, together with a response body. The response body is a <b><i>Map<String, String></b></i>. Which is extracting the <i><b>CustomException</b></i> content and transform to Key-Value pair <b><i>Map<String, String></b></i> 
-![ControllerAdvice](/_images/code-2.PNG?raw=true "ControllerAdvice")
+![ControllerAdvice](/_images/code-2.png?raw=true "ControllerAdvice")
 
 ### <u>Web MVC side</u>
 1. The FeignClient consume the web services in this demo
